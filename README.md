@@ -1,5 +1,5 @@
 
-# Marcel Dabek — Project Portfolio (v2)
+# Marcel Dabek — Project Portfolio
 
 Run locally:
 ```bash

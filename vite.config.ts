@@ -5,6 +5,6 @@ import mdx from '@mdx-js/rollup'
 import remarkGfm from 'remark-gfm'
 
 export default defineConfig({
-  base: '/',
-  plugins: [react(), mdx({ remarkPlugins: [remarkGfm] })]
+  base: './',
+  plugins: [react(), mdx({ remarkPlugins: [remarkGfm] })],
 })

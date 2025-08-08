@@ -33,7 +33,7 @@ a:hover { text-decoration: underline; }
   border: 2px solid transparent;
   background:
     conic-gradient(from var(--angle), #f97316, #84cc16, #06b6d4, #a855f7, #f97316) border-box,
-    transparent padding-box;
+    #fff padding-box; /* Fill inside with white */
   animation: spinAngle 8s linear infinite;
 }
 

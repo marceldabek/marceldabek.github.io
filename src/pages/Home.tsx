@@ -49,7 +49,7 @@ export default function Home() {
             className="absolute inset-x-0 bottom-10 px-4"
           >
             <div className="w-full max-w-xl mx-auto rounded-2xl overflow-hidden card rainbow-border">
-              <div className="p-4 rounded-2xl bg-white/85 border border-black/10">
+              <div className="p-4 rounded-2xl border border-black/10">
                 <div className="font-semibold mb-1">Search my projects & resume</div>
                 <p className="text-sm text-muted mb-3">
                   Client-side full-text search across MDX and resume. Press <b>/</b> anywhere or click below.

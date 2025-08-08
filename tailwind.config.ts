@@ -1,0 +1,19 @@
+
+import type { Config } from 'tailwindcss'
+
+export default {
+  content: ['./index.html', './src/**/*.{ts,tsx,mdx}', './content/**/*.{md,mdx}'],
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Inter','ui-sans-serif','system-ui','sans-serif'] },
+      colors: { bg: '#F7F8FA', text: '#111827', muted: '#6B7280', accent: '#2563EB' },
+      borderRadius: {
+        '2xl': '1rem'
+      },
+      boxShadow: {
+        soft: '0 10px 30px rgba(0,0,0,0.25)'
+      }
+    }
+  },
+  plugins: []
+} satisfies Config

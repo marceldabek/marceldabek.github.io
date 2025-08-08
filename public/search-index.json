@@ -1,0 +1,122 @@
+[
+  {
+    "id": "/projects/fsae-powertrain",
+    "type": "project",
+    "title": "EV Powertrain Case Study",
+    "slug": "/projects/fsae-powertrain",
+    "tags": [
+      "FSAE",
+      "EV",
+      "Powertrain"
+    ],
+    "year": 2024,
+    "images": [
+      "/assets/fsae-powertrain-1.png",
+      "/assets/fsae-powertrain-2.png"
+    ],
+    "summary": "Rules-compliant, reliable, quickly drivable; ~30% mass reduction via analysis-driven redesign.",
+    "text": "Researched 40+ team designs; selected core components (Emrax motor + Drexler differential). Free-body diagrams for 5 major parts; ANSYS static structural + topology optimization. Vibration analysis to move natural frequency above motor operating range. \u224830% powertrain mass reduction vs prior iteration. Manufactured and tested for ~6 months without failures."
+  },
+  {
+    "id": "/projects/accumulator",
+    "type": "project",
+    "title": "EV Accumulator (HV Battery)",
+    "slug": "/projects/accumulator",
+    "tags": [
+      "FSAE",
+      "Accumulator",
+      "Battery"
+    ],
+    "year": 2024,
+    "images": [
+      "/assets/accumulator-1.png",
+      "/assets/accumulator-2.png"
+    ],
+    "summary": "440 cells, ~92 kW, 8.32 kWh; Nomex 410 + Kapton; custom 5-layer clad fuses (~95 A).",
+    "text": "Defined design criteria with EE team; designed for strict FSAE rules and tight packaging. Thermal models showed passive cooling sufficient; eliminated active cooling complexity. Custom PCB for voltage/temperature logging; thermal relief features on busbars. Built and integrated in ~2 weeks. Ran reliably throughout the testing season."
+  },
+  {
+    "id": "/projects/r6-motor-shaft",
+    "type": "project",
+    "title": "Yamaha R6 Custom Motor Shaft",
+    "slug": "/projects/r6-motor-shaft",
+    "tags": [
+      "Machining",
+      "Drivetrain"
+    ],
+    "year": 2024,
+    "images": [
+      "/assets/r6-shaft-1.png"
+    ],
+    "summary": "Custom shaft to mate an R6 sprocket; JIS splines via MITCalc; 3D scan verification.",
+    "text": "Designed spline geometry using Japanese automotive references in MITCalc. Snap-ring calculations, bearing fits, material/heat-treatment selection. Verified against 3D-scanned R6 model; assembled successfully."
+  },
+  {
+    "id": "/projects/electronics-packaging",
+    "type": "project",
+    "title": "Electronics Packaging",
+    "slug": "/projects/electronics-packaging",
+    "tags": [
+      "Packaging",
+      "Electronics"
+    ],
+    "year": 2024,
+    "images": [
+      "/assets/electronics-packaging-1.png"
+    ],
+    "summary": "Controller/electronics plate, HV/LV interface, VCU structure, cooling, steering jig, pedal mount.",
+    "text": "Designed mounts and service access; ensured HV/LV isolation and strain relief. Used Fusion for plasma-cut programming; generative pedal mount exploration. Compact, serviceable layout; compliant with FSAE rules."
+  },
+  {
+    "id": "/projects/iwt-injection-molding",
+    "type": "project",
+    "title": "IWT Injection-Molding Ops",
+    "slug": "/projects/iwt-injection-molding",
+    "tags": [
+      "Manufacturing",
+      "Injection Molding"
+    ],
+    "year": 2025,
+    "images": [
+      "/assets/iwt-ops-1.png"
+    ],
+    "summary": "In-sourcing + line optimization case study; alignment cones; updated shipping standard.",
+    "text": "Supported in-sourcing of a high-volume stream (~400k units). Designed alignment cones; authored drawings and standards. Improved assembly efficiency and safety; validated with FEA checks."
+  },
+  {
+    "id": "/resume#exp-0",
+    "type": "resume",
+    "title": "Engineering Intern \u2014 Infiltrator Water Technologies",
+    "slug": "/resume",
+    "tags": [
+      "resume",
+      "Infiltrator Water Technologies",
+      "Engineering Intern"
+    ],
+    "text": "Engineering Intern Infiltrator Water Technologies Helped in-source and optimize an injection-molded product stream (~400k units). Designed alignment cones and authored manufacturing drawings/standards. Applied DFM for injection molding and ran FEA checks to validate parts."
+  },
+  {
+    "id": "/resume#exp-1",
+    "type": "resume",
+    "title": "EV Powertrain Lead \u2014 UConn Formula SAE",
+    "slug": "/resume",
+    "tags": [
+      "resume",
+      "UConn Formula SAE",
+      "EV Powertrain Lead"
+    ],
+    "text": "EV Powertrain Lead UConn Formula SAE Led EV powertrain development; integrated Drexler differential and Emrax motor. Built/packaged charging box, HV/LV box, shutdown box; ensured FSAE rule compliance. Structural analysis in ANSYS; iterative design reduced mass ~30% vs. prior iteration."
+  },
+  {
+    "id": "/resume#exp-2",
+    "type": "resume",
+    "title": "EV Powertrain Member \u2014 UConn Formula SAE",
+    "slug": "/resume",
+    "tags": [
+      "resume",
+      "UConn Formula SAE",
+      "EV Powertrain Member"
+    ],
+    "text": "EV Powertrain Member UConn Formula SAE Contributed to design and integration of the team\u2019s first EV powertrain. Assisted with battery, motor, and control-system integration; collaborated across subsystems."
+  }
+]

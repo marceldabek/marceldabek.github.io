@@ -1,0 +1,70 @@
+{
+  "name": "Marcel Dabek",
+  "email": "you@uconn.edu",
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/marceldabek/",
+    "github": "https://github.com/marceldabek"
+  },
+  "education": [
+    {
+      "school": "University of Connecticut",
+      "degree": "B.S. Mechanical Engineering",
+      "location": "Storrs, CT",
+      "dates": "Aug 2023 \u2013 May 2027",
+      "details": [
+        "Coursework: Thermodynamics I\u2013II, Fluid Dynamics, Heat Transfer, Materials"
+      ]
+    }
+  ],
+  "skills": {
+    "software": [
+      "SolidWorks",
+      "ANSYS Workbench",
+      "MITCalc",
+      "MATLAB"
+    ],
+    "programming": [
+      "Java",
+      "Python",
+      "MATLAB"
+    ],
+    "languages": [
+      "English",
+      "Polish"
+    ]
+  },
+  "experience": [
+    {
+      "title": "Engineering Intern",
+      "company": "Infiltrator Water Technologies",
+      "location": "Old Saybrook, CT",
+      "dates": "May 2025 \u2013 Present",
+      "bullets": [
+        "Helped in-source and optimize an injection-molded product stream (~400k units).",
+        "Designed alignment cones and authored manufacturing drawings/standards.",
+        "Applied DFM for injection molding and ran FEA checks to validate parts."
+      ]
+    },
+    {
+      "title": "EV Powertrain Lead",
+      "company": "UConn Formula SAE",
+      "location": "Storrs, CT",
+      "dates": "May 2024 \u2013 Present",
+      "bullets": [
+        "Led EV powertrain development; integrated Drexler differential and Emrax motor.",
+        "Built/packaged charging box, HV/LV box, shutdown box; ensured FSAE rule compliance.",
+        "Structural analysis in ANSYS; iterative design reduced mass ~30% vs. prior iteration."
+      ]
+    },
+    {
+      "title": "EV Powertrain Member",
+      "company": "UConn Formula SAE",
+      "location": "Storrs, CT",
+      "dates": "Sep 2023 \u2013 May 2024",
+      "bullets": [
+        "Contributed to design and integration of the team\u2019s first EV powertrain.",
+        "Assisted with battery, motor, and control-system integration; collaborated across subsystems."
+      ]
+    }
+  ]
+}

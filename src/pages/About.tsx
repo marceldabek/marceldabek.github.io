@@ -2,18 +2,36 @@
 import { useEffect, useState } from 'react'
 import SearchInline from '../ui/SearchInline'
 import ProjectCard from '../ui/ProjectCard'
-
+import { useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 export default function About() {
   const [items, setItems] = useState<any[]>([])
+  const location = useLocation()
 
   useEffect(() => {
+    // Fetch projects
     fetch('/search-index.json').then(r=>r.json()).then(d => {
       const projects = d.filter((x:any)=>x.type==='project').slice(0,4)
       setItems(projects)
     })
-  }, [])
+
+    // Only scroll if we're navigating directly to /about
+    if (location.pathname === '/about') {
+      // Add a small delay to ensure the content is rendered
+      setTimeout(() => {
+        const aboutSection = document.querySelector('section:last-of-type')
+        if (aboutSection) {
+          const rect = aboutSection.getBoundingClientRect()
+          const absoluteBottom = window.pageYOffset + rect.bottom + 200 // Added extra padding
+          window.scrollTo({ 
+            top: absoluteBottom,
+            behavior: 'smooth'
+          })
+        }
+      }, 100)
+    }
+  }, [location.pathname])
 
   return (
     <motion.section

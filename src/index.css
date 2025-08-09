@@ -28,12 +28,26 @@ a:hover { text-decoration: underline; }
 /* Animated border via conic-gradient angle (no pseudo-elements) */
 @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
 @keyframes spinAngle { to { --angle: 360deg; } }
+
 .rainbow-border {
-  --angle: 0deg;
-  border: 2px solid transparent;
-  background:
-    conic-gradient(from var(--angle), #f97316, #84cc16, #06b6d4, #a855f7, #f97316) border-box,
-    #fff padding-box; /* Fill inside with white */
+  position: relative;
+  border-radius: 1rem;
+  overflow: visible;
+}
+.rainbow-border::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  z-index: 0;
+  border-radius: inherit;
+  background: conic-gradient(from var(--angle, 0deg), #f97316, #84cc16, #06b6d4, #a855f7, #f97316);
+  filter: blur(8px);
   animation: spinAngle 8s linear infinite;
+}
+.rainbow-border > * {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border-radius: inherit;
 }
 

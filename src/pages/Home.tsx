@@ -52,7 +52,7 @@ export default function Home() {
               <div className="p-4 rounded-2xl border border-black/10">
                 <div className="font-semibold mb-1">Search my projects & resume</div>
                 <p className="text-sm text-muted mb-3">
-                  Client-side full-text search across MDX and resume. Press <b>/</b> anywhere or click below.
+                  Find the exact expertise you need. Press <b>/</b> key or click below.
                 </p>
                 <button onClick={openSearch} className="rounded-xl px-3 py-2 border border-black/20 hover:border-black/40 bg-white/70">
                   Open Search

@@ -25,13 +25,14 @@ export default function About() {
     >
       <div className="md:col-span-2 md:flex md:flex-col md:justify-center">
         <div className="w-72 h-72 md:w-80 md:h-80 rounded-2xl overflow-hidden bg-black/5 border border-black/10">
-          <img src="/assets/headshot.png" alt="Headshot" className="w-full h-full object-cover" />
+          <img src="/assets/headshot.jpg" alt="Headshot" className="w-full h-full object-cover" />
         </div>
         <h2 className="text-2xl font-semibold mt-4">About me</h2>
         <p className="text-muted mt-2">
           I’m a Mechanical Engineering student at UConn and the EV Powertrain Lead on UConn Formula SAE.
           I like turning rough concepts into manufacturable hardware—especially injection-molded parts,
-          composite structures, and reliable EV powertrains. I’m keeping this portfolio simple, fast, and image-first.
+          composite structures, and reliable EV powertrains. My goal with this portfolio is to put the
+          recruiter first and showcase my talents. 
         </p>
         <div className="mt-6">
           <SearchInline />

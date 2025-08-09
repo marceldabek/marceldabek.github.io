@@ -1,7 +1,9 @@
 
+
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { MDXProvider } from '@mdx-js/react'
+import Prose from '../ui/Prose'
+import { Gallery } from '../ui/Gallery'
 
 const mods = import.meta.glob('../../content/projects/*.mdx')
 
@@ -27,23 +29,42 @@ export default function Project() {
 
   if (!Comp) return <div className="p-6">Loading...</div>
 
+  const meta = frontmatter;
   return (
-    <section className="mx-auto max-w-3xl px-4 py-8">
-      {frontmatter && (
-        <div className="mb-6">
-          <div className="text-sm text-muted">{frontmatter.year} · {frontmatter.tags?.join(' • ')}</div>
-          <h1 className="text-3xl font-bold">{frontmatter.title}</h1>
-          <p className="text-muted">{frontmatter.summary}</p>
-          <div className="grid grid-cols-2 gap-3 my-4">
-            {(frontmatter.images || []).map((src:string, i:number) => (
-              <img key={i} src={src} alt={frontmatter.title} className="rounded-xl border border-white/10" />
-            ))}
-          </div>
+    <div className="container mx-auto px-4 py-10">
+      <div className="grid lg:grid-cols-12 gap-8">
+        {/* main column */}
+        <div className="lg:col-span-8">
+          {meta && (
+            <>
+              <h1 className="text-4xl font-extrabold mb-2">{meta.title}</h1>
+              <div className="text-sm text-muted mb-6">
+                {meta.year} {meta.role ? `• ${meta.role}` : ''}{meta.tech?.length ? ` • ${meta.tech.join(', ')}` : ''}
+              </div>
+              <Gallery images={meta.images} />
+            </>
+          )}
+          <Prose>
+            {Comp && <Comp />}
+          </Prose>
         </div>
-      )}
-      <MDXProvider>
-        <Comp />
-      </MDXProvider>
-    </section>
+        {/* sticky sidebar */}
+        <aside className="lg:col-span-4">
+          <div className="sticky top-24 rounded-2xl border border-black/10 bg-white/80 p-4 shadow">
+            {meta?.tags?.length ? (
+              <div className="mb-3 flex flex-wrap gap-2">
+                {meta.tags.map((t: string) => (
+                  <span key={t} className="px-2 py-1 rounded-full text-xs border border-black/15">{t}</span>
+                ))}
+              </div>
+            ) : null}
+            {meta?.summary && <p className="text-sm mb-3">{meta.summary}</p>}
+            {meta?.links?.github && <a className="block underline" href={meta.links.github} target="_blank">GitHub</a>}
+            {meta?.links?.demo && <a className="block underline" href={meta.links.demo} target="_blank">Demo</a>}
+            {meta?.links?.pdf && <a className="block underline" href={meta.links.pdf} target="_blank">PDF</a>}
+          </div>
+        </aside>
+      </div>
+    </div>
   )
 }

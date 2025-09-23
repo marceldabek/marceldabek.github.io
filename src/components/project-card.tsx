@@ -74,6 +74,11 @@ export function ProjectCard({
             className="h-40 w-full overflow-hidden object-cover object-top"
           />
         )}
+        {!video && !image && (
+          <div className="h-40 w-full bg-muted/40 flex items-center justify-center text-muted-foreground text-xs">
+            Preview coming soon
+          </div>
+        )}
       </Link>
       <CardHeader className="px-2">
         <div className="space-y-1">

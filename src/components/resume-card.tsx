@@ -30,6 +30,7 @@ export const ResumeCard = ({
   description,
 }: ResumeCardProps) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
+  const isSvg = React.useMemo(() => logoUrl?.toLowerCase().endsWith(".svg"), [logoUrl]);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (description) {
@@ -46,11 +47,11 @@ export const ResumeCard = ({
     >
       <Card className="flex">
         <div className="flex-none">
-          <Avatar className="border size-12 m-auto bg-muted-background dark:bg-foreground">
+          <Avatar className={cn("border size-12 m-auto bg-muted-background dark:bg-foreground", isSvg ? "p-1.5" : "")}> 
             <AvatarImage
               src={logoUrl}
               alt={altText}
-              className="object-contain"
+              className={cn(isSvg ? "object-contain object-center" : "object-cover object-center")}
             />
             <AvatarFallback>{altText[0]}</AvatarFallback>
           </Avatar>

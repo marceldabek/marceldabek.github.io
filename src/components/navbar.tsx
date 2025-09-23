@@ -60,27 +60,6 @@ export default function Navbar() {
               </Tooltip>
             </DockIcon>
           ))}
-        {/* Resume Button - downloads PDF */}
-        <DockIcon>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <a
-                href="/resume/Dabek%20Resume%209.22.2025.pdf"
-                download
-                className={cn(
-                  buttonVariants({ variant: "ghost", size: "icon" }),
-                  "size-12"
-                )}
-                aria-label="Download Resume"
-              >
-                <Icons.resume className="size-4" />
-              </a>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Download Resume</p>
-            </TooltipContent>
-          </Tooltip>
-        </DockIcon>
         <Separator orientation="vertical" className="h-full py-2" />
         <DockIcon>
           <Tooltip>

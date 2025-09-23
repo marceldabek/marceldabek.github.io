@@ -224,9 +224,6 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
               {tech.map((t) => (
                 <Badge key={t} variant="secondary" className="rounded-full">{t}</Badge>
               ))}
-              <Badge variant="outline" className="rounded-full">DFMEA</Badge>
-              <Badge variant="outline" className="rounded-full">Design Reviews</Badge>
-              <Badge variant="outline" className="rounded-full">Testing</Badge>
             </div>
           </section>
         )}

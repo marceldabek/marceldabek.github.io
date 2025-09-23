@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
+import { ChevronRightIcon } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -22,7 +23,7 @@ export default function Page() {
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
                 yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]} 👋`}
+                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
               />
               <BlurFadeText
                 className="max-w-[600px] md:text-xl"
@@ -129,7 +130,7 @@ export default function Page() {
             </div>
           </BlurFade>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
-            {DATA.projects.map((project, id) => (
+            {DATA.projects.slice(0, 4).map((project, id) => (
               <BlurFade
                 key={project.title}
                 delay={BLUR_FADE_DELAY * 12 + id * 0.05}
@@ -144,57 +145,27 @@ export default function Page() {
                   slug={(project as any).slug}
                   // description muted by default
                   image={project.image}
-                  video={project.video}
+                  video={(project as any).video}
                   links={project.links}
                 />
               </BlurFade>
             ))}
           </div>
+          {/* See more link */}
+          <div className="mt-4 text-center">
+            <BlurFade delay={BLUR_FADE_DELAY * 15}>
+              <Link
+                href="/projects"
+                className="group inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <span>See more</span>
+                <ChevronRightIcon className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
+              </Link>
+            </BlurFade>
+          </div>
         </div>
       </section>
-      <section id="hackathons">
-        <div className="space-y-12 w-full py-12">
-          <BlurFade delay={BLUR_FADE_DELAY * 13}>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                  Hackathons
-                </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  I like building things
-                </h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  During my time in university, I attended{" "}
-                  {DATA.hackathons.length}+ hackathons. People from around the
-                  country would come together and build incredible things in 2-3
-                  days. It was eye-opening to see the endless possibilities
-                  brought to life by a group of motivated and passionate
-                  individuals.
-                </p>
-              </div>
-            </div>
-          </BlurFade>
-          <BlurFade delay={BLUR_FADE_DELAY * 14}>
-            <ul className="mb-4 ml-4 divide-y divide-dashed border-l">
-              {DATA.hackathons.map((project, id) => (
-                <BlurFade
-                  key={project.title + project.dates}
-                  delay={BLUR_FADE_DELAY * 15 + id * 0.05}
-                >
-                  <HackathonCard
-                    title={project.title}
-                    description={project.description}
-                    location={project.location}
-                    dates={project.dates}
-                    image={project.image}
-                    links={project.links}
-                  />
-                </BlurFade>
-              ))}
-            </ul>
-          </BlurFade>
-        </div>
-      </section>
+      {/* Hackathons section removed per request */}
       <section id="contact">
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
@@ -206,8 +177,7 @@ export default function Page() {
                 Get in Touch
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Want to chat? Connect with me on LinkedIn or send an email and
-                I&apos;ll respond when I can. I will ignore all soliciting.
+                Want to chat? Connect with me on LinkedIn or email me at <a className="underline" href="mailto:marcel.dabek@uconn.edu">marcel.dabek@uconn.edu</a>.
               </p>
             </div>
           </BlurFade>

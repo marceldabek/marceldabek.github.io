@@ -1,4 +1,4 @@
-import { GlobeIcon, MailIcon, FileTextIcon } from "lucide-react";
+import { GlobeIcon, MailIcon, FileTextIcon, LayoutGrid as LayoutGridIcon } from "lucide-react";
 
 export type IconProps = React.HTMLAttributes<SVGElement>;
 
@@ -113,6 +113,7 @@ export const Icons = {
       ></path>
     </svg>
   ),
+  gallery: (props: IconProps) => <LayoutGridIcon {...props} />,
   resume: (props: IconProps) => <FileTextIcon {...props} />,
   notion: (props: IconProps) => (
     <svg

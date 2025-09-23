@@ -34,10 +34,10 @@ export default function ProjectsPage() {
                 description={project.description}
                 dates={project.dates}
                 tags={project.technologies}
-                slug={(project as any).slug}
+                slug={"slug" in project ? (project as any).slug : undefined}
                 // description muted by default
                 image={project.image}
-                video={project.video}
+                video={"video" in project ? (project as any).video : undefined}
                 links={project.links}
               />
             </BlurFade>

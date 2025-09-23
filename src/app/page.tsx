@@ -13,7 +13,7 @@ const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-10">
+  <main className="flex flex-col min-h-[100dvh] space-y-10 max-w-2xl mx-auto w-full">
       <section id="hero">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="gap-2 flex justify-between">
@@ -52,7 +52,7 @@ export default function Page() {
       <section id="work">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-xl font-bold">Work Experience</h2>
+            <h2 className="text-xl font-bold">Experience</h2>
           </BlurFade>
           {DATA.work.map((work, id) => (
             <BlurFade
@@ -123,9 +123,7 @@ export default function Page() {
                   Check out my latest work
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  I&apos;ve worked on a variety of projects, from simple
-                  websites to complex web applications. Here are a few of my
-                  favorites.
+                  I&apos;ve worked on a variety of projects, from simple one off parts to complex assemblies. Here are a few of my favorites.
                 </p>
               </div>
             </div>
@@ -143,6 +141,8 @@ export default function Page() {
                   description={project.description}
                   dates={project.dates}
                   tags={project.technologies}
+                  slug={(project as any).slug}
+                  // description muted by default
                   image={project.image}
                   video={project.video}
                   links={project.links}
@@ -206,15 +206,8 @@ export default function Page() {
                 Get in Touch
               </h2>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Want to chat? Just shoot me a dm{" "}
-                <Link
-                  href={DATA.contact.social.X.url}
-                  className="text-blue-500 hover:underline"
-                >
-                  with a direct question on twitter
-                </Link>{" "}
-                and I&apos;ll respond whenever I can. I will ignore all
-                soliciting.
+                Want to chat? Connect with me on LinkedIn or send an email and
+                I&apos;ll respond when I can. I will ignore all soliciting.
               </p>
             </div>
           </BlurFade>

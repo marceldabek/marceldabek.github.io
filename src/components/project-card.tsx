@@ -11,22 +11,23 @@ import Image from "next/image";
 import Link from "next/link";
 import Markdown from "react-markdown";
 
+type LinkItem = { title?: string; type?: string; icon: React.ReactNode; href: string };
+
 interface Props {
   title: string;
   href?: string;
-  description: string;
-  dates: string;
-  tags: readonly string[];
+  description?: string;
+  dates?: string;
+  tags?: ReadonlyArray<string>;
   link?: string;
   image?: string;
   video?: string;
-  links?: readonly {
-    icon: React.ReactNode;
-    type: string;
-    href: string;
-  }[];
+  links?: ReadonlyArray<LinkItem>;
   className?: string;
+  slug?: string; // add optional slug from DATA
+  mutedDescription?: boolean; // control description color
 }
+ 
 
 export function ProjectCard({
   title,
@@ -39,17 +40,21 @@ export function ProjectCard({
   video,
   links,
   className,
+  slug,
+  mutedDescription = true,
 }: Props) {
+  const internalHref = slug ? `/projects/${slug}` : href || "#";
+  const descriptionClass = cn(
+    "prose max-w-full text-pretty font-sans text-xs dark:prose-invert",
+    mutedDescription ? "text-muted-foreground" : "text-foreground"
+  );
   return (
     <Card
       className={
         "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
       }
     >
-      <Link
-        href={href || "#"}
-        className={cn("block cursor-pointer", className)}
-      >
+      <Link href={internalHref} className={cn("block cursor-pointer", className)}>
         {video && (
           <video
             src={video}
@@ -77,7 +82,7 @@ export function ProjectCard({
           <div className="hidden font-sans text-xs underline print:visible">
             {link?.replace("https://", "").replace("www.", "").replace("/", "")}
           </div>
-          <Markdown className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
+          <Markdown className={descriptionClass}>
             {description}
           </Markdown>
         </div>
@@ -86,31 +91,28 @@ export function ProjectCard({
         {tags && tags.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1">
             {tags?.map((tag) => (
-              <Badge
-                className="px-1 py-0 text-[10px]"
-                variant="secondary"
-                key={tag}
-              >
+              <Badge className="px-1 py-0 text-[10px]" variant="secondary" key={tag}>
                 {tag}
               </Badge>
             ))}
           </div>
         )}
       </CardContent>
-      <CardFooter className="px-2 pb-2">
-        {links && links.length > 0 && (
-          <div className="flex flex-row flex-wrap items-start gap-1">
-            {links?.map((link, idx) => (
-              <Link href={link?.href} key={idx} target="_blank">
-                <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
-                  {link.icon}
-                  {link.type}
-                </Badge>
-              </Link>
-            ))}
-          </div>
-        )}
-      </CardFooter>
+      {links && links.length > 0 && (
+        <CardFooter className="gap-2 px-2 pb-2">
+          {links?.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="inline-flex items-center gap-1 rounded-md bg-foreground text-background px-2 py-1.5 text-[11px] font-medium leading-none transition-colors hover:opacity-90"
+            >
+              {/* icon inherits currentColor (text) */}
+              <span className="inline-flex items-center">{link.icon}</span>
+              <span>{link.title ?? link.type}</span>
+            </Link>
+          ))}
+        </CardFooter>
+      )}
     </Card>
   );
 }

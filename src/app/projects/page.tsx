@@ -14,10 +14,14 @@ export default function ProjectsPage() {
     <main className="flex flex-col min-h-[100dvh] space-y-10 pb-8 max-w-2xl mx-auto w-full">
       <section>
         <div className="space-y-4 text-center">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">Projects</h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            A consolidated view of my projects. This mirrors the selection shown on the home page.
-          </p>
+          <BlurFade delay={0}>
+            <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">Projects</h1>
+          </BlurFade>
+          <BlurFade delay={0.1}>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              A consolidated view of my projects. This mirrors the selection shown on the home page.
+            </p>
+          </BlurFade>
         </div>
       </section>
       <section>
@@ -39,6 +43,17 @@ export default function ProjectsPage() {
                 image={project.image}
                 video={"video" in project ? (project as any).video : undefined}
                 links={project.links}
+                objectPosition={
+                  "slug" in project
+                    ? (project as any).slug === "pcb-design"
+                      ? "center 70%" // crop more of the top; bring subject higher in frame
+                      : (project as any).slug === "solidworks-workshops"
+                      ? "center 85%" // keep as-is: reveal bottom of photo
+                      : (project as any).slug === "powertrain"
+                      ? "center 60%" // slight downward focus to reveal more of the bottom
+                      : undefined
+                    : undefined
+                }
               />
             </BlurFade>
           ))}

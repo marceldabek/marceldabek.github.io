@@ -5,6 +5,7 @@ import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
@@ -147,6 +148,13 @@ export default function Page() {
                   image={project.image}
                   video={(project as any).video}
                   links={project.links}
+                  objectPosition={
+                    (project as any).slug === "powertrain"
+                      ? "center 60%" // same nudge as Projects page
+                      : (project as any).slug === "solidworks-workshops"
+                      ? "center 85%" // same composition when shown on home
+                      : undefined
+                  }
                 />
               </BlurFade>
             ))}
@@ -154,13 +162,12 @@ export default function Page() {
           {/* See more link */}
           <div className="mt-4 text-center">
             <BlurFade delay={BLUR_FADE_DELAY * 15}>
-              <Link
-                href="/projects"
-                className="group inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <span>See more</span>
-                <ChevronRightIcon className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
-              </Link>
+              <Button asChild size="lg" className="group gap-2 text-base">
+                <Link href="/projects" className="inline-flex items-center">
+                  <span>See more</span>
+                  <ChevronRightIcon className="size-5 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
+                </Link>
+              </Button>
             </BlurFade>
           </div>
         </div>

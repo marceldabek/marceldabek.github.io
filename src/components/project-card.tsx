@@ -26,6 +26,7 @@ interface Props {
   className?: string;
   slug?: string; // add optional slug from DATA
   mutedDescription?: boolean; // control description color
+  objectPosition?: string; // optional CSS object-position for media crop
 }
  
 
@@ -42,6 +43,7 @@ export function ProjectCard({
   className,
   slug,
   mutedDescription = true,
+  objectPosition,
 }: Props) {
   const internalHref = slug ? `/projects/${slug}` : href || "#";
   const descriptionClass = cn(
@@ -63,6 +65,7 @@ export function ProjectCard({
             muted
             playsInline
             className="pointer-events-none mx-auto h-40 w-full object-cover object-top" // needed because random black line at bottom of video
+            style={objectPosition ? { objectPosition } : undefined}
           />
         )}
         {image && (
@@ -72,6 +75,7 @@ export function ProjectCard({
             width={500}
             height={300}
             className="h-40 w-full overflow-hidden object-cover object-top"
+            style={objectPosition ? { objectPosition } : undefined}
           />
         )}
         {!video && !image && (

@@ -10,24 +10,16 @@ export default function GalleryPage() {
   // Simple masonry-like CSS using columns; no rounded corners, tight spacing
   const images = [
     // Project-adjacent but not used as previews
-    "/accumulator1.jpg",
     "/powertrain1.JPG",
-    "/powertrain2.JPG",
     "/powertrain3.png",
-    "/pcb2.png",
-    "/pcb3.png",
-    "/workshop2.jpg",
-    "/workshop3.png",
     "/pedalplate.png",
+    "/CFCLDN.png",
+    "/deskextension.png",
     // General photos/logos
     "/me1.jpeg",
     "/me2.jpg",
-    "/headshot2.jpg",
-    "/buildspace.jpg",
-    "/atomic.png",
-    "/nvidia.png",
-    "/mitremedia.png",
-    "/waterloo.png",
+  // Removed deleted logo/image assets (atomic.png, nvidia.png, mitremedia.png, waterloo.png, buildspace.png)
+  // If you want logos again later, add the new files into /public and reference them here.
   ];
   return (
     <main className="w-full max-w-5xl mx-auto">
@@ -42,7 +34,7 @@ export default function GalleryPage() {
         </BlurFade>
       </header>
       <section>
-        <div className="[column-count:1] sm:[column-count:2] md:[column-count:3] lg:[column-count:4] gap-4 [column-gap:1rem]">
+  <div className="[column-count:1] sm:[column-count:2] md:[column-count:3] lg:[column-count:3] gap-4 [column-gap:1rem]">
           {images.map((src, idx) => (
             <BlurFade key={src} delay={0.15 + idx * 0.05} className="mb-4 break-inside-avoid block">
               <img

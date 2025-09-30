@@ -160,7 +160,7 @@ export const DATA = {
       dates: "March 2025 - May 2025",
       active: true,
       description:
-        "Rapidly iterated through 26 designs. Transitioned production in-house (≈$50K/yr savings), and set up, tested, and installed new R&D projects.",
+        "During my 2025 Summer Internship with Infiltrator Water Technologies I rapidly iterated through 26 designs. Transitioned production in-house (≈$50K/yr savings), and set up, tested, and installed new R&D projects.",
       technologies: [
         "Injection Molding",
         "DFM",

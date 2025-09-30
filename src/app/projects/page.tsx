@@ -11,7 +11,8 @@ const BLUR_FADE_DELAY = 0.04;
 
 export default function ProjectsPage() {
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-10 pb-8 max-w-2xl mx-auto w-full">
+    // Added negative top margin to slightly pull the page title upward (reducing excess space from global body padding)
+    <main className="flex flex-col min-h-[100dvh] space-y-10 pb-8 max-w-2xl mx-auto w-full -mt-8 sm:-mt-8">
       <section>
         <div className="space-y-4 text-center">
           <BlurFade delay={0}>

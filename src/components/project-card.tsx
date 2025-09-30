@@ -86,7 +86,16 @@ export function ProjectCard({
       </Link>
       <CardHeader className="px-2">
         <div className="space-y-1">
-          <CardTitle className="mt-1 text-base">{title}</CardTitle>
+          <CardTitle className="mt-1 text-base">
+            <Link
+              href={internalHref}
+              className="group/link inline-flex items-start underline-offset-4 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring hover:underline transition-colors"
+            >
+              <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-[length:0%_2px] bg-left-bottom bg-no-repeat group-hover/link:bg-[length:100%_2px] motion-safe:transition-[background-size] duration-300">
+                {title}
+              </span>
+            </Link>
+          </CardTitle>
           <time className="font-sans text-xs">{dates}</time>
           <div className="hidden font-sans text-xs underline print:visible">
             {link?.replace("https://", "").replace("www.", "").replace("/", "")}

@@ -6,7 +6,10 @@ export const metadata = {
   description: "Resume for Marcel Dabek",
 };
 
-const PDF_PATH = "/resume/Dabek%20Resume%209.22.2025.pdf";
+// Updated to latest resume file uploaded 9-28.
+// File stored at /public/resume/DABEK resume 9-28.pdf (spaces URL-encoded below)
+// Cleaner alias suggestion: copy or rename to /public/resume/dabek-resume-latest.pdf for a stable link.
+const PDF_PATH = "/resume/dabek-resume-latest.pdf";
 
 export default function ResumePage() {
   return (

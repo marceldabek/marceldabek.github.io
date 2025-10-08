@@ -54,17 +54,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="h-full">
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased py-12 sm:py-24 px-6",
           fontSans.variable
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="light">
+        <ThemeProvider defaultTheme="light">
           <TooltipProvider delayDuration={0}>
-            {children}
             <Navbar />
+            {children}
           </TooltipProvider>
         </ThemeProvider>
       </body>

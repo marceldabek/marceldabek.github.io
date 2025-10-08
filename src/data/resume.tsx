@@ -69,7 +69,7 @@ export const DATA = {
       start: "May 2025",
       end: "August 2025",
       description:
-        "Designed and released multiple injection-molded components (DFM). Resolved a critical assembly issue blocking an advanced treatment model. Developed a low-cost modification package for the high-level alarm. Led efforts to bring manufacturing in-house, improving margins by ~$50K/year. Set up, tested and installed a new R&D project. Produced drawing packages that enabled supplier negotiations.",
+        "Led ops-automation to bring ~400,000 caps/year production in-house, improving margins by ~$50K/year. Evaluated robots plus a packaging redesign that projected 50–75% fewer manual interactions per shift. Iterated through 26 designs using additive manufacturing and a Design–FEA–Test loop to de-risk tooling. Ramped on DFM for injection molding, released three components, and added a clip feature that eliminated install time. Developed a low-cost modification package for a high-level alarm by integrating a float valve into existing infrastructure. Set up, tested, and installed leading-edge R&D projects, and produced 50+ drawings that enabled supplier negotiations.",
     },
     {
       company: "UConn Formula SAE",
@@ -81,7 +81,7 @@ export const DATA = {
       start: "August 2023",
       end: "Present",
       description:
-        "Led UConn FSAE’s first electric vehicle to a 14th-place national finish, owning the powertrain, accumulator, and electrical integration. Designed the powertrain from first principles—MATLAB gear-ratio modeling (predicted 1.05 g launch), ANSYS structural/topology optimization (~35% mass reduction), and vibration tuning to shift modes above the motor’s operating range. Reverse-engineered and designed a custom motor shaft to interface with a Yamaha R6 sprocket, validating geometry with 3D scans and proper fits/heat-treat. Architected a 440-cell, 92 kW, 8.32 kWh accumulator that met FSAE rules without active cooling, built in two weeks, and later redesigned to cut weight 25% and volume 35% while improving serviceability and thermal paths.",
+        "Led UConn FSAE’s first EV to a 14th-place national finish, owning powertrain, accumulator, and electrical integration. Architected a 440-cell, 462 V, 8.32 kWh accumulator that passed tech on its first attempt; built the pack in two weeks, then redesigned it to cut weight 25% and volume 35% while improving serviceability and thermal paths. Reverse-engineered a Yamaha R6 output shaft and used MATLAB gear-ratio modeling to select the final drive; shifted vibration modes above the motor’s operating range with targeted analysis. Directed design and manufacturing using ANSYS structural/topology optimization, designed water-proof electronics enclosures, and programmed plasma-cutter workflows. Collected track data to simulate alternate pack designs for max points, and tuned motor-controller settings in Race Studio 3 to fix drivability issues and reduce power cutbacks. Built a project-management web app with Discord sync, SSO, and a critical-path timeline to keep the team on schedule.",
     },
   ],
   education: [

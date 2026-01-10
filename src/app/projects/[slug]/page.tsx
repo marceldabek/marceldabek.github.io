@@ -1,31 +1,13 @@
-import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { DATA } from "@/data/resume";
 import Image from "next/image";
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 
 // Default placeholder image. Swap this with your own asset in /public.
 // Updated after removal of old logo/image assets.
 const PLACEHOLDER = "/headshot2.jpg"; // generic existing asset used as placeholder
-
-export type ProjectDetailProps = {
-  title?: string;
-  timeframe?: string;
-  role?: string;
-  tech?: string[];
-  heroImage?: string;
-  summary?: string;
-  sections?: Array<{
-    heading: string;
-    body: string;
-    image?: string;
-    imageClass?: string;
-  }>;
-};
 
 const L = {
   // Slightly wider than the rest of the site for detail pages
@@ -35,55 +17,78 @@ const L = {
   pill: "rounded-full px-2.5 py-1 text-xs",
 };
 
+const GALLERY_PROJECTS: Record<
+  string,
+  { images: string[]; wrapperClass?: string; imageClass?: string }
+> = {
+  accumulator: {
+    images: [
+      "/accumulator1.jpg",
+      "/accumulator2.png",
+      "/accumulator3.png",
+      "/accumulator6.png",
+      "/accumulator7.png",
+      "/accumulator8.png",
+    ],
+    wrapperClass: "max-w-[500px]",
+  },
+  powertrain: {
+    images: [
+      "/powertrain1.JPG",
+      "/powertrain2.JPG",
+      "/powertrain3.png",
+      "/powertrain4.png",
+      "/powertrain5.png",
+    ],
+    wrapperClass: "max-w-[500px]",
+  },
+  "engineering-intern": {
+    images: ["/iwt4.png", "/iwt3.png", "/iwt2.png", "/iwt1.png"],
+    wrapperClass: "max-w-[700px]",
+  },
+  "solidworks-workshops": {
+    images: ["/workshop2.jpg", "/workshop3.png"],
+    wrapperClass: "max-w-[700px]",
+  },
+};
+
 function MediaBlock({
   heading,
-  body,
   image,
   flip,
   imageClass,
-}: { heading: string; body: string; image?: string; flip?: boolean; imageClass?: string }) {
+}: { heading: string; image?: string; flip?: boolean; imageClass?: string }) {
+  // If heading is empty, just show the image without text
+  if (!heading) {
+    return (
+      <section className="py-6">
+        <div className="flex justify-center">
+          <div className="relative max-w-[700px] w-full">
+            <Image
+              src={image || PLACEHOLDER}
+              alt=""
+              width={700}
+              height={500}
+              className={`w-full h-auto rounded-2xl shadow-sm ring-1 ring-black/5 object-cover ${imageClass || ""}`}
+            />
+          </div>
+        </div>
+      </section>
+    );
+  }
+  
   return (
     <section className="py-10 md:py-14">
       <div className={`grid items-center gap-8 md:gap-12 lg:gap-16 md:grid-cols-2 ${flip ? "md:[&>div:first-child]:order-2" : ""}`}>
         <div>
-          <h3 className="text-xl sm:text-2xl font-semibold">{heading}</h3>
-          <div className="mt-3 text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{
-                a: ({ href, children, ...props }) => {
-                  if (!href) return <a {...props}>{children}</a>;
-                  if (href.startsWith("/")) {
-                    return (
-                      <Link href={href} {...(props as any)}>
-                        {children}
-                      </Link>
-                    );
-                  }
-                  if (href.startsWith("#")) {
-                    return (
-                      <a href={href} {...props}>
-                        {children}
-                      </a>
-                    );
-                  }
-                  return (
-                    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
-                      {children}
-                    </a>
-                  );
-                },
-              }}
-            >
-              {body}
-            </ReactMarkdown>
-          </div>
+          <h3 className="text-xl sm:text-2xl font-semibold text-zinc-900 dark:text-zinc-100">{heading}</h3>
         </div>
         <div className="relative">
-          {/* NOTE: Replace with next/image when photos are available */}
-          <img
+          <Image
             src={image || PLACEHOLDER}
             alt={heading}
+            width={800}
+            height={600}
             className={`w-full h-auto rounded-2xl shadow-sm ring-1 ring-black/5 object-cover ${imageClass || ""}`}
           />
         </div>
@@ -93,9 +98,10 @@ function MediaBlock({
 }
 
 export async function generateStaticParams() {
-  // Generate pages for all projects that have a slug
+  // Generate pages for all projects that have a slug, excluding electrical-structures and project-manager-website
+  const excludedSlugs = ["electrical-structures", "project-manager-website"];
   return (DATA.projects as unknown as Array<any>) // DATA is readonly, cast via unknown to iterate
-    .filter((p) => p.slug)
+    .filter((p) => p.slug && !excludedSlugs.includes(p.slug))
     .map((p) => ({ slug: p.slug }));
 }
 
@@ -111,198 +117,56 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
   const title = project?.title ?? "Project";
   const timeframe = project?.dates ?? "";
   const tech = (project?.technologies as string[] | undefined) ?? [];
-  const summary = project?.description ?? "Project details coming soon.";
-  const heroImage = project?.image || PLACEHOLDER;
+  const galleryConfig =
+    project?.slug && GALLERY_PROJECTS[project.slug]
+      ? GALLERY_PROJECTS[project.slug]
+      : undefined;
+  const isGalleryProject = Boolean(galleryConfig);
+  // For solidworks-workshops, use workshop1.jpg as hero even though it's not in gallery
+  const heroImage = isGalleryProject
+    ? project?.slug === "solidworks-workshops"
+      ? "/workshop1.jpg"
+      : galleryConfig?.images[0] ?? PLACEHOLDER
+    : project?.image || PLACEHOLDER;
   const heroVideo = (project as any)?.video as string | undefined;
 
-  let sections: Array<{ heading: string; body: string; image?: string; imageClass?: string }> = [
-    {
-      heading: "Overview",
-      body: summary,
-      image: heroImage,
-    },
-    {
-      heading: "Design & Approach",
-      body:
-        "This section will cover your design rationale, trade-offs, and how you validated the approach. Add CAD, schematics, or diagrams here.",
-      image: PLACEHOLDER,
-    },
-    {
-      heading: "Manufacturing & Assembly",
-      body:
-        "Describe fabrication steps, tooling, tolerances, and any assembly challenges you solved. Photos and short clips work great here.",
-      image: PLACEHOLDER,
-    },
-  ];
-
-  // Extend with project-specific media using newly added photos.
-  // For now, placeholder descriptive text accompanies each image.
-  if (project?.slug === "accumulator") {
-    // Replace accumulator sections with user-provided structured narrative (5 sections)
-    // Keep the initial Overview section already present above.
-    // Map images: 1->Design Scope, 2->System Architecture, 3->Cell Stack (half size), 4->Electronics & Enclosure, 5->Build/Test
-    sections.push(
+  let sections: Array<{ heading: string; image?: string; imageClass?: string }> = [];
+  if (!isGalleryProject) {
+    sections = [
       {
-        heading: "Design Scope",
-        body: "I partnered with our electrical team to lock down criteria early. Two things drove every choice: the welded frame left tight space, and Formula SAE rules are strict. Success meant one thing—pass tech inspection and finish endurance safely.",
-        image: "/accumulator2.png",
+        heading: "Overview",
+        image: heroImage,
       },
       {
-        heading: "System Architecture & Performance",
-        body: "I began with simulations using past-competition data to size the system and predict thermal behavior. That led to cell types and a series/parallel layout that push voltage for our components while keeping resistance low—simple enough that we eliminated active cooling. The structure is built for up to 40 g load cases per the rulebook. The pack uses 440 cells in five segments, delivering 92 kW with 8.32 kWh of storage.",
-        image: "/accumulator8.png", // updated per request (7 -> 8)
+        heading: "Design & Approach",
+        image: PLACEHOLDER,
       },
       {
-        heading: "Cell Stack & Protection",
-        body: "Cells are epoxied between two ½-inch polycarbonate sheets, insulated with Nomex 410, and sealed with Kapton tape. Each cell is individually fused using laser-cut five-layer clad (nickel, copper, stainless) rated 95 A. I stripped the cell insulation to route from the top positive to the outer-edge negative, reducing the accumulator length by 2.5 inches. Busbars are spot-welded to the tops of the cells.",
-        image: "/accumulator3.png",
-        imageClass: "max-w-[50%] mx-auto",
+        heading: "Manufacturing & Assembly",
+        image: PLACEHOLDER,
       },
-      {
-        heading: "Polycarbonate Routing & Fixturing",
-        body: "Used a custom polycarbonate router setup and fixturing strategy to achieve clean, stress-minimized edges on pack panels while holding ±0.010 in critical features. This reduced post-processing time and improved seal integrity.",
-  image: "/polycarbrouter.webp", // corrected filename
-      },
-      {
-        heading: "Electronics & Enclosure",
-        body: "I integrated a custom PCB to log voltage and temperature, defined the board profile, and selected the connectors. I added thermal relief at the busbar so the voltage-sense solder joint doesn’t overheat nearby cells. Segments sit in a sheet-metal enclosure, fully insulated with Nomex 410 and linked with off-the-shelf connectors and pins. I also designed a dedicated service area tying the HV stack to low-voltage safety circuitry in line with Formula SAE standards.",
-  image: "/segmentvoltagetap.webp", // corrected filename
-      },
-      {
-        heading: "Build, Test & Iteration",
-        body: "Manufacturing and chassis integration finished within a two-week window, and the accumulator ran reliably through the testing season. Later, I redesigned the pack to cut weight ~25%, reduce volume ~35%, improve serviceability, and add alumina plates to passively move heat from the cells to the case.",
-  image: "/ct15ev.webp", // corrected filename
-      }
-    );
-  } else if (project?.slug === "powertrain") {
-    // Remove any placeholder sections first
-    sections = sections.filter((s) => s.image !== PLACEHOLDER);
-    // Replace with user-provided narrative (5 sections). Map available images sequentially.
-    sections.push(
-      {
-        heading: "Design Goals & Benchmarking",
-        body: "I set a simple target: build the most straightforward, rules-compliant powertrain that could get the car driving reliably, fast. I started by studying designs from 40+ teams and selecting the major components that fit that brief.",
-        image: "/powertrain1.JPG",
-        // Enlarged footprint (previously 60% / 400px). Allow taller render while keeping some restraint.
-        imageClass: "max-w-[80%] mx-auto max-h-[560px] md:max-h-[520px] object-contain",
-      },
-      {
-        heading: "Driveline Sizing & Early Work",
-        body: "To size the gearing, I modeled the car as a point mass in MATLAB and hunted for the ratio that maximized acceleration. The result guided a rear sprocket assembly I built while ramping up on SolidWorks and ANSYS. The simulation predicted 1.05 g peak acceleration, and along the way I got hands-on with Static Structural setup, cycle life, and mesh convergence.",
-        image: "/powertrain2.JPG",
-        // Match enlarged sizing for consistency
-        imageClass: "max-w-[80%] mx-auto max-h-[560px] md:max-h-[520px] object-contain",
-      },
-      {
-        heading: "Structure & Topology Optimization",
-        body: "I laid out free-body diagrams for the five major powertrain parts, created preliminary designs, and ran ANSYS Static Structural analyses. From there, I used topology optimization to cut weight by 35% and minimize compliance—iterating through three full redesigns to land a clean, manufacturable set.",
-        image: "/powertrain3.png",
-      },
-      {
-        heading: "Vibration Control & Motor Shaft Integration",
-        body: "After digging into modal and harmonic response, I stiffened the assembly to raise the natural frequency above the motor’s operating range and avoid resonance-induced failure. I also designed the electric motor shaft to mate with an off-the-shelf Yamaha R6 sprocket, built the spline geometry in MITCalc (referencing Japanese automotive texts), and verified dimensions against a 3D scan of the R6. That work included snap-ring calcs, bearing fits, steel alloys, Rockwell hardness, and heat-treat process considerations.",
-        image: "/powertrain4.png",
-      },
-      {
-        heading: "Final Assembly, Manufacturing & Results",
-        body: "I wrapped the powertrain with full drawings, BOM, manufacturing plans, and design presentations, then simplified the design when we shifted manufacturing in-house. All parts were built and assembled and the system was tested for six months with no failures.",
-        image: "/powertrain5.png",
-      }
-    );
+    ];
   }
 
   // PCB project: replace repeated/placeholder images with pcb2 & pcb3 and drop extra placeholder section
-  if (project?.slug === "pcb-design") {
-    if (sections[0]) sections[0].image = "/pcb2.png"; // Overview shows a different board image
-    if (sections[1]) sections[1].image = "/pcb3.png"; // Design & Approach gets third board image
-    // Remove any remaining sections beyond the first two (e.g., Manufacturing placeholder)
-    sections = sections.slice(0, 2);
-  }
-
-  // Remove any placeholder (headshot) sections for these key projects so only real images + overview remain
-  if (project?.slug === "accumulator" || project?.slug === "powertrain") {
-    sections = sections.filter((s) => s.image !== PLACEHOLDER);
-  }
-
-  // Engineering Intern (Infiltrator Water Technologies) custom media using new IWT images
-  if (project?.slug === "engineering-intern") {
-    // Remove placeholder sections first
-    sections = sections.filter((s) => s.image !== PLACEHOLDER);
-    // Desired order: iwt4, iwt3, iwt2, iwt1
-    if (sections[0]) sections[0].image = "/iwt4.png"; // Overview gets iwt4
-    sections.push(
+  // Remove headings for PCB - just show images
+  if (!isGalleryProject && project?.slug === "pcb-design") {
+    sections = [
       {
-        heading: "In-House Transition Setup",
-        body: "Placeholder: Commentary on fixture validation, process documentation, and savings (~$50K/yr) from in-house production shift.",
-        image: "/iwt3.png",
+        heading: "",
+        image: "/pcb2.png",
       },
       {
-        heading: "Iterative Design Cycles",
-        body: "Placeholder: Short note about rapidly iterating CAD + tooling adjustments across 26 design versions to meet DFM and performance targets.",
-        image: "/iwt2.png",
+        heading: "",
+        image: "/pcb3.png",
       },
-      {
-        heading: "R&D Implementation",
-        body: "Placeholder: Brief mention of installing, testing, and commissioning new R&D project hardware and instrumentation.",
-        image: "/iwt1.png",
-        imageClass: "max-w-[50%] mx-auto", // half-size presentation
-      }
-    );
+    ];
   }
 
-  // Solidworks Workshops project: ensure three workshop images are displayed
-  if (project?.slug === "solidworks-workshops") {
-    // Remove placeholder sections
-    sections = sections.filter((s) => s.image !== PLACEHOLDER);
-    if (sections[0]) sections[0].image = "/workshop1.jpg"; // Overview
-    // Replace / append with the remaining two images
-    sections.push(
-      {
-        heading: "Hands-On Session",
-        body: "Placeholder: Brief overview of live modeling session teaching design intent & feature order.",
-        image: "/workshop2.jpg",
-      },
-      {
-        heading: "Advanced Topics",
-        body: "Placeholder: Coverage of configurations, drawings prep, and FEA-ready geometry cleanup.",
-        image: "/workshop3.png",
-      }
-    );
-  }
-
-  // Render summary as Markdown so inline links like [Formula SAE](https://www.sae.org/) become clickable
-  const SummaryMarkdown = ({ text }: { text: string }) => (
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      components={{
-        a: ({ href, children, ...props }) => {
-          if (!href) return <a {...props}>{children}</a>;
-          if (href.startsWith("/")) {
-            return (
-              <Link href={href} {...(props as any)}>
-                {children}
-              </Link>
-            );
-          }
-          if (href.startsWith("#")) {
-            return (
-              <a href={href} {...props}>
-                {children}
-              </a>
-            );
-          }
-          return (
-            <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
-              {children}
-            </a>
-          );
-        },
-        p: ({ children }) => <p className={`mt-3 ${L.lead}`}>{children}</p>,
-      }}
-    >
-      {text}
-    </ReactMarkdown>
-  );
+  const galleryWrapperBase = "flex flex-col items-center gap-6 mx-auto w-full";
+  const galleryMaxWidthClass = galleryConfig?.wrapperClass ?? "max-w-[720px]";
+  const galleryImageClass = galleryConfig?.imageClass ?? "w-full h-auto object-contain";
+  const galleryImages = galleryConfig?.images ?? [];
 
   return (
     <main className="relative">
@@ -315,7 +179,6 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
         <div className="mt-4 grid gap-8 md:grid-cols-2 items-center">
           <div>
             <h1 className={L.h1}>{title}</h1>
-            <SummaryMarkdown text={summary} />
             <div className="mt-5 flex flex-wrap items-center gap-2">
               {timeframe && (
                 <Badge className={L.pill} variant="secondary">{timeframe}</Badge>
@@ -336,9 +199,11 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
                 className="w-full h-auto rounded-2xl shadow-sm ring-1 ring-black/5 object-cover"
               />
             ) : (
-              <img
+              <Image
                 src={heroImage}
                 alt="Project hero"
+                width={800}
+                height={600}
                 className="w-full h-auto rounded-2xl shadow-sm ring-1 ring-black/5 object-cover"
               />
             )}
@@ -350,9 +215,29 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
 
       {/* Content */}
       <div className={`${L.container} py-6 md:py-10`}>
-        {sections.map((s, i) => (
-          <MediaBlock key={s.heading + i} heading={s.heading} body={s.body} image={s.image} imageClass={(s as any).imageClass} flip={i % 2 === 1} />
-        ))}
+        {isGalleryProject ? (
+          <section className={`${galleryWrapperBase} ${galleryMaxWidthClass}`}>
+            {galleryImages.map((src, idx) => (
+              <div
+                key={src}
+                className="w-full overflow-hidden rounded-2xl shadow-sm ring-1 ring-black/5 bg-background"
+              >
+                <Image
+                  src={src}
+                  alt={`${title} photo ${idx + 1}`}
+                  width={800}
+                  height={600}
+                  loading="lazy"
+                  className={galleryImageClass}
+                />
+              </div>
+            ))}
+          </section>
+        ) : (
+          sections.map((s, i) => (
+            <MediaBlock key={s.heading + i} heading={s.heading} image={s.image} imageClass={s.imageClass} flip={i % 2 === 1} />
+          ))
+        )}
 
         {/* Tech stack pills */}
         {tech.length > 0 && (

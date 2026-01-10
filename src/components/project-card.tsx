@@ -9,14 +9,12 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import Markdown from "react-markdown";
 
 type LinkItem = { title?: string; type?: string; icon: React.ReactNode; href: string };
 
 interface Props {
   title: string;
   href?: string;
-  description?: string;
   dates?: string;
   tags?: ReadonlyArray<string>;
   link?: string;
@@ -25,7 +23,6 @@ interface Props {
   links?: ReadonlyArray<LinkItem>;
   className?: string;
   slug?: string; // add optional slug from DATA
-  mutedDescription?: boolean; // control description color
   objectPosition?: string; // optional CSS object-position for media crop
 }
  
@@ -33,7 +30,6 @@ interface Props {
 export function ProjectCard({
   title,
   href,
-  description,
   dates,
   tags,
   link,
@@ -42,67 +38,79 @@ export function ProjectCard({
   links,
   className,
   slug,
-  mutedDescription = true,
   objectPosition,
 }: Props) {
   const internalHref = slug ? `/projects/${slug}` : href || "#";
-  const descriptionClass = cn(
-    "prose max-w-full text-pretty font-sans text-xs dark:prose-invert",
-    mutedDescription ? "text-muted-foreground" : "text-foreground"
+  const isClickable = Boolean(slug);
+  
+  const mediaContent = (
+    <>
+      {video && (
+        <video
+          src={video}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="pointer-events-none mx-auto h-40 w-full object-cover object-top" // needed because random black line at bottom of video
+          style={objectPosition ? { objectPosition } : undefined}
+        />
+      )}
+      {image && (
+        <Image
+          src={image}
+          alt={title}
+          width={500}
+          height={300}
+          className="h-40 w-full overflow-hidden object-cover object-top"
+          style={objectPosition ? { objectPosition } : undefined}
+        />
+      )}
+      {!video && !image && (
+        <div className="h-40 w-full bg-muted/40 flex items-center justify-center text-muted-foreground text-xs">
+          Preview coming soon
+        </div>
+      )}
+    </>
   );
+
   return (
     <Card
       className={
         "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
       }
     >
-      <Link href={internalHref} className={cn("block cursor-pointer", className)}>
-        {video && (
-          <video
-            src={video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="pointer-events-none mx-auto h-40 w-full object-cover object-top" // needed because random black line at bottom of video
-            style={objectPosition ? { objectPosition } : undefined}
-          />
-        )}
-        {image && (
-          <Image
-            src={image}
-            alt={title}
-            width={500}
-            height={300}
-            className="h-40 w-full overflow-hidden object-cover object-top"
-            style={objectPosition ? { objectPosition } : undefined}
-          />
-        )}
-        {!video && !image && (
-          <div className="h-40 w-full bg-muted/40 flex items-center justify-center text-muted-foreground text-xs">
-            Preview coming soon
-          </div>
-        )}
-      </Link>
+      {isClickable ? (
+        <Link href={internalHref} className={cn("block cursor-pointer", className)}>
+          {mediaContent}
+        </Link>
+      ) : (
+        <div className={cn("block", className)}>
+          {mediaContent}
+        </div>
+      )}
       <CardHeader className="px-2">
         <div className="space-y-1">
           <CardTitle className="mt-1 text-base">
-            <Link
-              href={internalHref}
-              className="group/link inline-flex items-start underline-offset-4 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring hover:underline transition-colors"
-            >
-              <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-[length:0%_2px] bg-left-bottom bg-no-repeat group-hover/link:bg-[length:100%_2px] motion-safe:transition-[background-size] duration-300">
+            {isClickable ? (
+              <Link
+                href={internalHref}
+                className="group/link inline-flex items-start underline-offset-4 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring hover:underline transition-colors"
+              >
+                <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-[length:0%_2px] bg-left-bottom bg-no-repeat group-hover/link:bg-[length:100%_2px] motion-safe:transition-[background-size] duration-300">
+                  {title}
+                </span>
+              </Link>
+            ) : (
+              <span className="inline-flex items-start">
                 {title}
               </span>
-            </Link>
+            )}
           </CardTitle>
           <time className="font-sans text-xs">{dates}</time>
           <div className="hidden font-sans text-xs underline print:visible">
             {link?.replace("https://", "").replace("www.", "").replace("/", "")}
           </div>
-          <Markdown className={descriptionClass}>
-            {description}
-          </Markdown>
         </div>
       </CardHeader>
       <CardContent className="mt-auto flex flex-col px-2">

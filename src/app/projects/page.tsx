@@ -36,7 +36,6 @@ export default function ProjectsPage() {
                 href={project.href}
                 key={project.title}
                 title={project.title}
-                description={project.description}
                 dates={project.dates}
                 tags={project.technologies}
                 slug={"slug" in project ? (project as any).slug : undefined}

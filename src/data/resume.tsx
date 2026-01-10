@@ -182,7 +182,6 @@ export const DATA = {
     },
     {
       title: "Team Ops Hub",
-      slug: "project-manager-website",
       href: "https://marceldabek.github.io/fsae-dashboard/",
       dates: "July 2025 - August 2025",
       active: true,
@@ -257,7 +256,6 @@ export const DATA = {
     },
     {
       title: "Electrical Structures",
-      slug: "electrical-structures",
       href: "#",
   dates: "March 2025 - May 2025",
       active: false,

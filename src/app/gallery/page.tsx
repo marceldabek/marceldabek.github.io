@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import BlurFade from "@/components/magicui/blur-fade";
 
 export const metadata = {
@@ -40,9 +41,11 @@ export default function GalleryPage() {
   <div className="[column-count:1] sm:[column-count:2] md:[column-count:3] lg:[column-count:3] gap-4 [column-gap:1rem]">
           {images.map((img, idx) => (
             <BlurFade key={img.src} delay={0.15 + idx * 0.05} className="mb-4 break-inside-avoid block group relative overflow-hidden rounded-sm">
-              <img
+              <Image
                 src={img.src}
                 alt={img.caption || "Gallery item"}
+                width={800}
+                height={600}
                 className="w-full h-auto object-cover transition duration-300 ease-in-out group-hover:blur-sm group-hover:scale-[1.02]"
                 loading="lazy"
               />

@@ -33,7 +33,7 @@ export default function GalleryPage() {
         </BlurFade>
         <BlurFade delay={0.1}>
           <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed mt-2">
-            A collection of images from projects. Hover interactions can be added later.
+            A collection of images from projects.
           </p>
         </BlurFade>
       </header>

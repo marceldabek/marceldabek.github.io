@@ -216,7 +216,7 @@ export const DATA = {
       title: "Flow Meter - PCB Design",
       slug: "pcb-design",
       href: "#",
-  dates: "June 2025 - September 2025",
+  dates: "June 2025 - August 2025",
       active: false,
       description: "Collection of custom PCBs: accumulator sensing, low-voltage distribution, and safety interlocks. Focus on DFM, clear silkscreen labeling, and easy test-point access.",
       technologies: [

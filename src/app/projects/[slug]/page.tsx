@@ -24,26 +24,24 @@ const GALLERY_PROJECTS: Record<
   accumulator: {
     images: [
       "/accumulator1.jpg",
-      "/accumulator2.png",
+      "/accumulator8.png",
       "/accumulator3.png",
       "/accumulator6.png",
       "/accumulator7.png",
-      "/accumulator8.png",
     ],
     wrapperClass: "max-w-[500px]",
   },
   powertrain: {
     images: [
-      "/powertrain1.JPG",
       "/powertrain2.JPG",
+      "/powertrain9.png",
+      "/powertrain1.JPG",
       "/powertrain3.png",
-      "/powertrain4.png",
-      "/powertrain5.png",
     ],
     wrapperClass: "max-w-[500px]",
   },
   "engineering-intern": {
-    images: ["/iwt4.png", "/iwt3.png", "/iwt2.png", "/iwt1.png"],
+    images: ["/iwt4.png", "/iwt3.png", "/iwt1.png", "/iwt2.png"],
     wrapperClass: "max-w-[700px]",
   },
   "solidworks-workshops": {
@@ -54,12 +52,21 @@ const GALLERY_PROJECTS: Record<
 
 function MediaBlock({
   heading,
+  body,
   image,
+  secondaryImage,
   flip,
   imageClass,
-}: { heading: string; image?: string; flip?: boolean; imageClass?: string }) {
-  // If heading is empty, just show the image without text
-  if (!heading) {
+}: {
+  heading: string;
+  body?: string[];
+  image?: string;
+  secondaryImage?: string;
+  flip?: boolean;
+  imageClass?: string;
+}) {
+  // If heading and body are empty, just show the image without text
+  if (!heading && (!body || body.length === 0)) {
     return (
       <section className="py-6">
         <div className="flex justify-center">
@@ -82,15 +89,45 @@ function MediaBlock({
       <div className={`grid items-center gap-8 md:gap-12 lg:gap-16 md:grid-cols-2 ${flip ? "md:[&>div:first-child]:order-2" : ""}`}>
         <div>
           <h3 className="text-xl sm:text-2xl font-semibold text-zinc-900 dark:text-zinc-100">{heading}</h3>
+          {body && body.length > 0 && (
+            <div className="mt-4 space-y-4 text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
+              {body.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          )}
         </div>
         <div className="relative">
-          <Image
-            src={image || PLACEHOLDER}
-            alt={heading}
-            width={800}
-            height={600}
-            className={`w-full h-auto rounded-2xl shadow-sm ring-1 ring-black/5 object-cover ${imageClass || ""}`}
-          />
+          {secondaryImage ? (
+            <div className="grid gap-4 sm:grid-cols-2 items-center">
+              <div className="w-full overflow-hidden rounded-2xl shadow-sm ring-1 ring-black/5 bg-background">
+                <Image
+                  src={image || PLACEHOLDER}
+                  alt={heading}
+                  width={700}
+                  height={500}
+                  className="w-full h-[260px] sm:h-[300px] object-contain"
+                />
+              </div>
+              <div className="w-full overflow-hidden rounded-2xl shadow-sm ring-1 ring-black/5 bg-background">
+                <Image
+                  src={secondaryImage}
+                  alt={heading}
+                  width={700}
+                  height={500}
+                  className="w-full h-[260px] sm:h-[300px] object-contain"
+                />
+              </div>
+            </div>
+          ) : (
+            <Image
+              src={image || PLACEHOLDER}
+              alt={heading}
+              width={800}
+              height={600}
+              className={`w-full h-auto rounded-2xl shadow-sm ring-1 ring-black/5 object-cover ${imageClass || ""}`}
+            />
+          )}
         </div>
       </div>
     </section>
@@ -130,7 +167,13 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
     : project?.image || PLACEHOLDER;
   const heroVideo = (project as any)?.video as string | undefined;
 
-  let sections: Array<{ heading: string; image?: string; imageClass?: string }> = [];
+  let sections: Array<{
+    heading: string;
+    body?: string[];
+    image?: string;
+    secondaryImage?: string;
+    imageClass?: string;
+  }> = [];
   if (!isGalleryProject) {
     sections = [
       {
@@ -167,6 +210,80 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
   const galleryMaxWidthClass = galleryConfig?.wrapperClass ?? "max-w-[720px]";
   const galleryImageClass = galleryConfig?.imageClass ?? "w-full h-auto object-contain";
   const galleryImages = galleryConfig?.images ?? [];
+  const isPowertrainDetail = project?.slug === "powertrain";
+  const isAccumulatorDetail = project?.slug === "accumulator";
+  const isEngineeringInternDetail = project?.slug === "engineering-intern";
+  const powertrainParagraphs: Array<string | string[]> = [
+    "I lead the mechanical design of the first EV powertrain on the formula team which secured us a 1st place trophy in efficiency and 14th place finish overall. The goal of the powertrain was to make it as durable as possible and maximize its performance by reducing its size and mass. The key constraints were packaging and geometry: the differential location is driven by axle angle limits to the rear spindles, the motor has to fit inside the frame envelope. I connected them with a chain drive which needs shielding to protect against unexpected chain failure.",
+    "Based on the motor’s 220 Nm peak torque which is equivalent at the drive sprocket it to roughly 8kN newtons in chain tension, and 10 kN which side loads the mounts right next to the chain. I iterated through designs using Ansys static structural aiming for a factor of safety of 2 and used modal analysis to identify modes below frequencies that could be produced by the motor that were eliminated by adding more attachment points to the rear of the car increasing mode frequencies.",
+    "I selected a 520 chain and designed around an 11-tooth drive sprocket and 40-tooth driven sprocket (40/11 ≈ 3.64:1) as the baseline ratio, found using autocross point-mass simulations to balance acceleration and efficiency.",
+    [
+      "A worry of the powertrain is tolerance stack up. Instead of relying on perfect machining, I made the assembly somewhat adjustable: on the drive side shaft I use a C-clip as an axial hard stop, push the drive sprocket against that stop, then shim the sprocket outward until its plane lines up with the driven sprocket after that I put a spacer on the other side of the sprocket that will keep it in place.",
+      "All that work lead to the 14th overall finish and the first place trophy.",
+    ],
+  ];
+  const accumulatorParagraphs: Array<string | string[]> = [
+    "I am the owner of the high-voltage battery that supplies power to the electric motor. After the powertrain work, I led the accumulator design, making last year’s pack and now building a second iteration within a fixed chassis envelope and Formula SAE rules. Rules compliance was the most critical concern, so safety, simplicity, and serviceability were prioritized.",
+    "The capacity and thermal performance were developed for the 30-minute endurance challenge. I ran simulations using last year’s data to compare P45B cells, JP40s (their low internal resistance reduces heating), and P50Bs, which were ultimately selected after a Tesla sponsorship. I verified the new cells would not overheat without active cooling, and this iteration dropped 40 cells from last year to cut 5-10 lbs.",
+    "The pack uses 440 cells divided into five segments (about 462 V, 8.32 kWh). I selected the cell format and configuration to maximize voltage for our components while reducing resistance, and I designed the cell structure and sheet-metal enclosure to meet the 40 g load cases called out by the rulebook. U-shaped mounts were added, and their geometry was checked against the competition standardized document.",
+    "The enclosure is fully sealed, electrically insulated around the segments, and includes a service area that keeps high- and low-voltage interfaces accessible and rules-compliant. Cells are secured between polycarbonate sheets with epoxy, insulated with Nomex 410 and Kapton, and individually fused with a five-layer clad 95 A fuse. I integrated voltage and temperature logging through a custom PCB footprint, and used off-the-shelf high-voltage connectors and pins picked out by the electrical team, and ensured the casing is manufacturable in-house. We built and installed the pack in a two-week window, and it ran reliably through the testing season.",
+  ];
+  const engineeringInternParagraphs: Array<string | string[]> = [
+    "Distributors receive palletized tank halves and are the ones who join them at their warehouses. I designed a snap-fit assembly cone that ships with each EDGE-600 tank and makes that join fast, repeatable and safe. The cone indexes the parts, guides alignment, and keeps hands clear while the halves are brought together. The goal was simple—reduce struggle, prevent mis-alignment, and make assembly reliable for anyone at the distributor site.",
+    "I ran a design–simulate–test loop in SolidWorks Simulation and iterated through roughly twenty-six geometry changes. Each iteration was 3D-printed first to check fit and handling. I measured installation and pull-off forces with a shop scale and set practical targets: 30 lb total to seat the part/remove it, about 10 lb per clip.",
+    "Plastic clips failed to hold that consistently, so I moved to bolt-on metal U-nut clips while keeping the body polypropylene for manufacturability as 400 of these would be made annually. The final tool clips on positively, resists accidental removal, and installs with a firm, repeatable push. The body is a DFM’d injection-molded polypropylene part; retention is provided by bolts driven through the opposite side of standard U-nuts so they act as metal clip latches.",
+    "I planned a simple, reconfigurable cap-assembly line so production could be brought in-house and the same stations could be reused for future parts. I laid out stations and fixtures around an eight-cavity shot plan, balanced tasks to match the shot rate, and sized throughput to about 400,000 caps per year. We referenced an internal cost-sensitivity table to set reasonable ranges; the case pointed to a low six-figure capital spend (about $80k–$150k) with roughly $50k/year margin improvement if implemented. I also drafted an 80/20 plus vacuum-cup end-of-arm tool so parts could be handled without marking.",
+  ];
+
+  if (isPowertrainDetail) {
+    sections = galleryImages.map((src, idx) => ({
+      heading: idx === 0 ? "EV Powertrain" : "",
+      body: powertrainParagraphs[idx]
+        ? Array.isArray(powertrainParagraphs[idx])
+          ? powertrainParagraphs[idx]
+          : [powertrainParagraphs[idx]]
+        : [],
+      image: src,
+      imageClass: galleryImageClass,
+    }));
+  }
+  if (isAccumulatorDetail) {
+    const lastIdx = galleryImages.length - 1;
+    sections = galleryImages.flatMap((src, idx) => {
+      if (idx === lastIdx) return [];
+      return [
+        {
+          heading: idx === 0 ? "EV Accumulator - UConn FSAE" : "",
+          body: accumulatorParagraphs[idx]
+            ? Array.isArray(accumulatorParagraphs[idx])
+              ? accumulatorParagraphs[idx]
+              : [accumulatorParagraphs[idx]]
+            : [],
+          image: src,
+          secondaryImage: idx === 1 ? galleryImages[lastIdx] : undefined,
+          imageClass:
+            src === "/accumulator3.png"
+              ? `${galleryImageClass} max-w-[360px] mx-auto`
+              : galleryImageClass,
+        },
+      ];
+    });
+  }
+  if (isEngineeringInternDetail) {
+    sections = galleryImages.map((src, idx) => ({
+      heading: idx === 0 ? "Snap-Fit Assembly – Infiltrator Water Technologies" : "",
+      body: engineeringInternParagraphs[idx]
+        ? Array.isArray(engineeringInternParagraphs[idx])
+          ? engineeringInternParagraphs[idx]
+          : [engineeringInternParagraphs[idx]]
+        : [],
+      image: src,
+      imageClass:
+        src === "/iwt1.png"
+          ? `${galleryImageClass} max-w-[360px] mx-auto`
+          : galleryImageClass,
+    }));
+  }
 
   return (
     <main className="relative">
@@ -215,7 +332,7 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
 
       {/* Content */}
       <div className={`${L.container} py-6 md:py-10`}>
-        {isGalleryProject ? (
+        {isGalleryProject && !isPowertrainDetail && !isAccumulatorDetail && !isEngineeringInternDetail ? (
           <section className={`${galleryWrapperBase} ${galleryMaxWidthClass}`}>
             {galleryImages.map((src, idx) => (
               <div
@@ -235,7 +352,15 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
           </section>
         ) : (
           sections.map((s, i) => (
-            <MediaBlock key={s.heading + i} heading={s.heading} image={s.image} imageClass={s.imageClass} flip={i % 2 === 1} />
+            <MediaBlock
+              key={`${s.heading}-${i}`}
+              heading={s.heading}
+              body={s.body}
+              image={s.image}
+              secondaryImage={s.secondaryImage}
+              imageClass={s.imageClass}
+              flip={i % 2 === 1}
+            />
           ))
         )}
 

@@ -1,4 +1,3 @@
-import { HackathonCard } from "@/components/hackathon-card";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { ProjectCard } from "@/components/project-card";
@@ -8,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
 import Link from "next/link";
-import Markdown from "react-markdown";
+import { RichText } from "@/components/rich-text";
 import { ChevronRightIcon } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -46,9 +45,12 @@ export default function Page() {
           <h2 className="text-xl font-bold">About</h2>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <Markdown className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
-            {DATA.summary}
-          </Markdown>
+          <p className="max-w-full text-pretty font-sans text-sm text-muted-foreground">
+            <RichText
+              text={DATA.summary}
+              linkClassName="font-medium text-foreground underline underline-offset-2 hover:opacity-80"
+            />
+          </p>
         </BlurFade>
       </section>
       <section id="work">
@@ -152,6 +154,8 @@ export default function Page() {
                       ? "center 60%" // same nudge as Projects page
                       : (project as any).slug === "solidworks-workshops"
                       ? "center 85%" // same composition when shown on home
+                      : (project as any).slug === "accumulator-ct17"
+                      ? "center 38%" // slide image up to reveal the pack, less empty top
                       : undefined
                   }
                 />

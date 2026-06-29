@@ -51,6 +51,8 @@ export default function ProjectsPage() {
                       ? "center 85%" // keep as-is: reveal bottom of photo
                       : (project as any).slug === "powertrain"
                       ? "center 60%" // slight downward focus to reveal more of the bottom
+                      : (project as any).slug === "accumulator-ct17"
+                      ? "center 38%" // slide image up to reveal the pack, less empty top
                       : undefined
                     : undefined
                 }

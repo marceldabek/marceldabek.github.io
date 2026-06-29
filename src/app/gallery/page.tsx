@@ -11,13 +11,16 @@ export default function GalleryPage() {
   // Simple masonry-like CSS using columns; no rounded corners, tight spacing
   interface GalleryImage { src: string; caption?: string }
   const images: GalleryImage[] = [
+    { src: "/drive-day-ct16.jpg", caption: "Me driving the CT-16 EV during team drive day." },
+    { src: "/ct16-on-track.jpg", caption: "The CT-16 EV out on track." },
+    { src: "/r6-output-shaft.jpg", caption: "Reverse-engineered Yamaha R6 output shafts, with a good part next to one flagged out of tolerance." },
     // Project-adjacent but not used as previews
   { src: "/powertrain1.JPG", caption: "Nearly full assembly completed within only 24 hours of receiving all parts." },
     { src: "/powertrain3.png", caption: "Fully custom reverse engineered motor shaft using an R6 motorcycle spline." },
     { src: "/pedalplate.png", caption: "Pedal mount designed with Fusion 360 generative design." },
     { src: "/deskextension.png", caption: "3D printed desk extension that wirelessly charges my phone and Apple Watch." },
     { src: "/me1.jpeg", caption: "Electrical Structures assembly." },
-  { src: "/newmemberday.webp", caption: "Our shop full of new members—result of recruiting campaigns I led." },
+  { src: "/newmemberday.webp", caption: "Our shop full of new members, the result of recruiting campaigns I led." },
   { src: "/SAE New Members Day-20.jpg", caption: "Introducing EV Powertrain to new members." },
   { src: "/SAE New Members Day-31.jpg", caption: "Showing off a few Powertrain components of the FSAE car to new members." },
     { src: "/Pitt-Shootout-097.jpg", caption: "CT-16EV (left) & CT-16IC (right) after the Pittsburgh Shootout event." },

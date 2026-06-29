@@ -26,12 +26,12 @@ const BlurFade = ({
   children,
   className,
   variant,
-  duration = 0.4,
+  duration = 0.3,
   delay = 0,
   yOffset = 6,
   inView = false,
   inViewMargin = "-50px",
-  blur = "6px",
+  blur = "4px",
 }: BlurFadeProps) => {
   const ref = useRef(null);
   // Coerce provided margin to DerivedMarginType | undefined (if undefined, let framer-motion default)

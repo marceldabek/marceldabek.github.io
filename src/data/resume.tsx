@@ -69,7 +69,7 @@ export const DATA = {
       start: "May 2026",
       end: "Present",
       description:
-        "Manufacturing-engineering intern with the Composites Impact Manufacturing Analysis (CIMA) group at Pratt & Whitney’s Middletown engine center. I do [R&D on the automated composites machine at CCAT](/projects/pratt-whitney) for the composite fan blade, and support the F135 engine program through manufacturing efforts, analyzing test data on metal rotors flagged for defects. Held concurrently with an internship at Transcend Mechanics.",
+        "Engineering intern with the Composites Impact Manufacturing Analysis (CIMA) group at Pratt & Whitney’s Middletown engine center. I do [R&D on the automated composites machine at CCAT](/projects/pratt-whitney) for the composite fan blade, and support the F135 engine program, analyzing test data on metal rotors flagged for defects. Held concurrently with an internship at Transcend Mechanics.",
     },
     {
       company: "Transcend Mechanics",
@@ -126,7 +126,7 @@ export const DATA = {
       dates: "August 2025 - June 2026",
       active: true,
       description:
-        "I lead the complete end-to-end design of [UConn FSAE](https://www.uconnformulasae.com/)'s second-generation high-voltage accumulator (CT-17), owning mechanical design, cell selection, and pack sizing. Using real 2025 endurance data I resized the pack, simulated and selected the Molicel P50B cell, and validated the thermal and current-sharing design before build.",
+        "I lead the complete end-to-end design of [UConn FSAE](https://www.uconnformulasae.com/)'s second-generation high-voltage accumulator (CT-17), owning mechanical design, cell selection, and pack sizing. Using real 2025 endurance data I simulated and selected the Molicel P50B cell and validated the thermal and current-sharing design before build.",
       technologies: [
         "Solidworks",
         "Ansys Thermal-Electric",
@@ -235,15 +235,15 @@ export const DATA = {
       video: "/videos/project-manager-website/preview.mp4",
     },
     {
-      title: "Manufacturing R&D at Pratt & Whitney",
+      title: "R&D at Pratt & Whitney",
       slug: "pratt-whitney",
       href: "https://www.prattwhitney.com/",
       dates: "May 2026 - Present",
       active: true,
       description:
-        "Manufacturing-engineering work at Pratt & Whitney across two threads: R&D on the automated composites machine at CCAT for the composite fan blade, and defect inspection and tracking on metal rotors for the F135 engine program.",
+        "Engineering work at Pratt & Whitney across two threads: R&D on the automated composites machine at CCAT for the composite fan blade, and defect inspection and tracking on metal rotors for the F135 engine program.",
       technologies: [
-        "Manufacturing Engineering",
+        "R&D",
         "Defect Analysis",
         "Composites",
         "Quality",
@@ -292,7 +292,7 @@ export const DATA = {
       dates: "August 2024 - May 2025",
       active: true,
       description:
-        "On [UConn FSAE](https://www.uconnformulasae.com/)'s first-ever EV (CT-16), I helped design and build the high-voltage accumulator, contributing to the pack architecture, packaging, and hands-on assembly of our 440-cell, 462 V pack through its first competition season.",
+        "On [UConn FSAE](https://www.uconnformulasae.com/)'s first-ever EV (CT-16), I helped design and build the high-voltage accumulator, contributing to the pack architecture, packaging, and hands-on assembly of our 400-cell, 415 V, 8.32 kWh pack through its first competition season.",
       technologies: [
         "Solidworks",
         "Ansys",

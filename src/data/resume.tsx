@@ -78,7 +78,7 @@ export const DATA = {
       location: "",
       title: "Mechanical Engineering & Software Development Intern",
       logoUrl: "/transcend-mechanics.jpg",
-      start: "May 2026",
+      start: "February 2026",
       end: "Present",
       description:
         "Intern at a startup building deFlex, a SaaS platform that generatively designs flexures and compliant mechanisms straight from engineering inputs. On the software side I work with AI-assisted development to build product features and rebuilt the UI from scratch, which improved the design workflow tremendously. On the mechanical side I designed and built a [mechanical test rig](/projects/fatigue-test-rig) for characterizing flexures.",
